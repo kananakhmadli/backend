@@ -16,14 +16,14 @@ public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     @Named("concatNames")
-    default String concatNames(String firstName) {
-        return "Hey " + firstName;
+    default String concatNames(User user) {
+        return "Hey " + user.getFirstName() + " " + user.getLastName();
     }
 
     @Mappings({
             @Mapping(source = "user.firstName", target = "name"),
             @Mapping(source = "user.lastName", target = "surname"),
-            @Mapping(target = "fullName", source = "firstName", qualifiedByName = "concatNames")
+            @Mapping(target = "fullName", source = ".", qualifiedByName = "concatNames")
     })
     UserDto2 toUserDto2_1(User user);
 

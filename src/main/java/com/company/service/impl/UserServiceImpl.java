@@ -5,9 +5,11 @@ import com.company.dto.CreateUserResponseDto;
 import com.company.dto.UserDto;
 import com.company.dto.UserDto2;
 import com.company.entity.User;
+import com.company.error.exceptions.UserNotFoundException;
 import com.company.mapper.UserMapper;
 import com.company.repository.UserRepository;
 import com.company.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Pageable;
@@ -21,17 +23,23 @@ import java.util.List;
 
 @Service
 @Transactional
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    public UserRepository userRepository;
+    private  UserRepository userRepository;
 
     @Autowired
-    public UserMapper userMapper;
+    private  UserMapper userMapper;
+
+    @Autowired
+    private  PasswordEncoder passwordEncoder;
+
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public List<UserDto> getUsers() {
+        log.info("getUsers methods is called");
         List<User> users = userRepository.findAll();
         return userMapper.toUserDtoList(users);
     }
@@ -46,7 +54,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getById(Long id) {
 
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException("There is no such a user to delete"));
         return userMapper.toUserDto(user);
     }
 
@@ -77,12 +86,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto removeUser(Long id) throws Exception { //done
-        User user = userRepository.findById(id).get();
+    public UserDto removeUser(Long id) { //done
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException("There is no such a user to delete"));
 
-        if (user == null) {
-            throw new Exception("There is no such a user to delete");
-        }
         userRepository.deleteById(id);
         return userMapper.toUserDto(user);
 
@@ -95,11 +102,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CreateUserResponseDto updateUser(CreateUserRequestDto createUserRequestDto) throws Exception {
+    public CreateUserResponseDto updateUser(CreateUserRequestDto createUserRequestDto) {
         User user = userMapper.toUser(createUserRequestDto);
-//        User user=userRepository.findById(id).get();
         if (user == null) {
-            throw new Exception("There is no such a user to update");
+            throw new UserNotFoundException("There is no such a user to update");
         }
 
         userRepository.save(user);
@@ -114,8 +120,6 @@ public class UserServiceImpl implements UserService {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Override
     public CreateUserResponseDto addUser(CreateUserRequestDto createUserRequestDto) { //done
