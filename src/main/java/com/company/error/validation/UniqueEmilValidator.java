@@ -1,6 +1,7 @@
-package com.company.validator;
+package com.company.error.validation;
 
 import com.company.repository.UserRepository;
+import com.company.error.validation.constraints.UniqueEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;

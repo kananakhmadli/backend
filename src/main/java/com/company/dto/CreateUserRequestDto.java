@@ -1,12 +1,15 @@
 package com.company.dto;
 
-import com.company.validator.UniqueEmail;
+import com.company.error.validation.constraints.ErrMessage;
+import com.company.error.validation.constraints.UniqueEmail;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,19 +20,22 @@ import javax.validation.constraints.Size;
 public class CreateUserRequestDto {
     private Long id;
 
-    @NotNull(message = "{backend.constraint.firstName.notNull.message}")
-    @Size(min = 4, max = 10, message = "{backend.constraint.firstName.size.message}")
+    @NotNull(message = ErrMessage.FIRSTNAME_NOT_NULL)
+    @Size(min = 4, max = 10, message = ErrMessage.FIRSTNAME_SIZE)
+    @ApiModelProperty(notes = "Name of the contact.",
+            example = "Jessica Abigail", required = false, position = 1)
+    @NotBlank
     private String firstName;
 
-    @NotNull(message = "{backend.constraint.lastName.notNull.message}")
-    @Size(min = 3, max = 9, message = "{backend.constraint.lastName.size.message}")
+    @NotNull(message = ErrMessage.LASTNAME_NOT_NULL)
+    @Size(min = 3, max = 9, message = ErrMessage.LASTNAME_SIZE)
     private String lastName;
 
-    @JsonProperty("Yas") //olduqu kimi yazılmalıdır
+    @JsonProperty("age")
     private Integer age;
 
-    @NotNull(message = "{backend.constraint.email.notNull.message}")
-    @Size(min = 3, max = 30, message = "{backend.constraint.email.size.message}")
+    @NotNull(message = ErrMessage.EMAIL_NOT_NULL)
+    @Size(min = 3, max = 30, message = ErrMessage.EMAIL_SIZE)
     @UniqueEmail
     private String email;
     private String password;
