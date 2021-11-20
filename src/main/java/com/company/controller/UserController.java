@@ -48,7 +48,6 @@ public class UserController {
         log.info("requesting v1/users/slice");
         List<UserDto> slice = userService.slice(pageable);
         return ResponseEntity.ok((ResponseDto.of(slice, "getting pageable")));
-
     }
 
     @GetMapping(value = "v1/user")
@@ -61,14 +60,11 @@ public class UserController {
         return ResponseEntity.ok((ResponseDto.of(userDtos, "searching user")));
     }
 
-
     @PostMapping(value = "v1/users")
     public ResponseEntity<ResponseDto> addUser(@Valid @RequestBody CreateUserRequestDto createUserRequestDto) {
-
         log.info("requesting v1/user");
         CreateUserResponseDto userResponseDto = userService.addUser(createUserRequestDto);
         return ResponseEntity.ok(ResponseDto.of(userResponseDto, "Successfully added new user"));
-
     }
 
     @PutMapping(value = "v1/users")
@@ -78,12 +74,10 @@ public class UserController {
         log.info("requesting v1/user");
         CreateUserResponseDto userResponseDto = userService.updateUser(createUserRequestDto);
         return ResponseEntity.ok(ResponseDto.of(userResponseDto, "Successfully updated"));
-
     }
 
     @DeleteMapping("v1/users/{id}")
     public ResponseEntity<ResponseDto> removeUser(@PathVariable("id") Long id) throws Exception {
-
         log.info("requesting v1/user{id}");
         UserDto userDto = userService.removeUser(id);
         return ResponseEntity.ok(ResponseDto.of(userDto, "Successfully deleted"));
@@ -95,5 +89,4 @@ public class UserController {
         userService.removeAll();
         return ResponseEntity.ok(ResponseDto.of(null, "Successfully deleted all users"));
     }
-
 }

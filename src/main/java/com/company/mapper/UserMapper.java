@@ -33,7 +33,6 @@ public interface UserMapper {
     */
     List<UserDto2> toUserDto2List(List<User> user);
 
-
     UserDto toUserDto(User user);
 
     List<UserDto> toUserDtoList(List<User> user);
@@ -41,6 +40,4 @@ public interface UserMapper {
     User toUser(CreateUserRequestDto createUserRequestDto);
 
     CreateUserResponseDto toCreateUserResponseDto(User user);
-
-
 }

@@ -9,7 +9,7 @@
         <relativePath/>
     </parent>
     <groupId>com.company</groupId>
-    <artifactId>backend</artifactId>
+    <artifactId>ms-backend</artifactId>
     <version>0.0.1</version>
     <name>backend</name>
     <properties>

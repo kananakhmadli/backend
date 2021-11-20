@@ -16,6 +16,4 @@ public class CreateUserResponseDto {
     private Integer age;
     private String email;
     private String password;
-
-
 }

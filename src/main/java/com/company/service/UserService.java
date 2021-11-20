@@ -4,7 +4,6 @@ import com.company.dto.CreateUserRequestDto;
 import com.company.dto.CreateUserResponseDto;
 import com.company.dto.UserDto;
 import com.company.dto.UserDto2;
-import com.company.entity.User;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -29,5 +28,4 @@ public interface UserService {
     public CreateUserResponseDto updateUser(CreateUserRequestDto createUserRequestDto) throws Exception;
 
     public CreateUserResponseDto addUser(CreateUserRequestDto createUserRequestDto);
-
 }

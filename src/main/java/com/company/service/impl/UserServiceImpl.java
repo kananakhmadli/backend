@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private  PasswordEncoder passwordEncoder;
 
-
     @Override
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public List<UserDto> getUsers() {
@@ -47,13 +46,11 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public List<UserDto2> getUsers2() {
-
         return userMapper.toUserDto2List(userRepository.findAll());
     }
 
     @Override
     public UserDto getById(Long id) {
-
         User user = userRepository.findById(id).orElseThrow(
                 () -> new UserNotFoundException("There is no such a user to delete"));
         return userMapper.toUserDto(user);
@@ -82,22 +79,18 @@ public class UserServiceImpl implements UserService {
 
         List<User> users = userRepository.findByFirstNameOrLastName(firstName, lastName);
         return userMapper.toUserDtoList(users);
-
     }
 
     @Override
     public UserDto removeUser(Long id) { //done
         User user = userRepository.findById(id).orElseThrow(
                 () -> new UserNotFoundException("There is no such a user to delete"));
-
         userRepository.deleteById(id);
         return userMapper.toUserDto(user);
-
     }
 
     @Override
     public void removeAll() {
-
         userRepository.deleteAll(); //done
     }
 
@@ -107,31 +100,22 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new UserNotFoundException("There is no such a user to update");
         }
-
         userRepository.save(user);
         return userMapper.toCreateUserResponseDto(user);
-
     }
-
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
-
         return new BCryptPasswordEncoder();
     }
 
-
     @Override
     public CreateUserResponseDto addUser(CreateUserRequestDto createUserRequestDto) { //done
-
         String password = passwordEncoder.encode(createUserRequestDto.getPassword());
         createUserRequestDto.setPassword(password);
 
         User user = userMapper.toUser(createUserRequestDto);
         userRepository.save(user);
         return userMapper.toCreateUserResponseDto(user);
-
-
     }
-
 }
