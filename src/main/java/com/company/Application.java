@@ -12,6 +12,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+
 //    @Bean
 //    public CommandLineRunner run() throws Exception {
 //        return new CommandLineRunner() {

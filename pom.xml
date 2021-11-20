@@ -11,7 +11,7 @@
     <groupId>com.company</groupId>
     <artifactId>ms-backend</artifactId>
     <version>0.0.1</version>
-    <name>backend</name>
+    <name>ms-backend</name>
     <properties>
         <java.version>11</java.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
