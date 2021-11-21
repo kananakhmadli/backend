@@ -5,7 +5,10 @@ import com.company.dto.CreateUserResponseDto;
 import com.company.dto.UserDto;
 import com.company.dto.UserDto2;
 import com.company.entity.User;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;

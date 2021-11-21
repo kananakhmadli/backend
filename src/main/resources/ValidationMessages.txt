@@ -1,9 +1,0 @@
-#backend.constraint.firstName.size.message=First name size must be between {min} and {max}
-#backend.constraint.firstName.notNull.message=First name cannot be null
-#
-#backend.constraint.lastName.size.message=Last name size must be between {min} and {max}
-#backend.constraint.lastName.notNull.message=Last name cannot be null
-#
-#backend.constraint.email.size.message=Email size must be between {min} and {max}
-#backend.constraint.email.notNull.message=Email name cannot be null
-#backend.constraint.email.uniqueEmail.message=Email must be unique

@@ -19,7 +19,4 @@ public class UserDto {
     private Integer age;
 
     private String email;
-
-
-
 }

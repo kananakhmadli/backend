@@ -1,8 +1,16 @@
 package com.company.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Getter
@@ -30,7 +38,6 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-
     public User(String firstName, String lastName, Integer age, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -38,5 +45,4 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
 }

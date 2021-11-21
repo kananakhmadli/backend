@@ -11,15 +11,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDto2 {
 
-
     private String name;
     private String surname;
     private String fullName;
 
     public String concatNames(String firstName, String lastName) {
         return firstName + lastName;
-
     }
-
-
 }
