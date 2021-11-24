@@ -1,0 +1,45 @@
+
+server:
+    port: 8080
+
+#api-message-error:Error message comes form application properties
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: [ "env", "health", "info" ]
+spring:
+    application:
+        name: ms-backend
+    messages:
+        basename: i18n/messages
+        encoding: UTF-8
+    datasource:
+        url: jdbc:h2:mem:testdb
+
+
+logging:
+    level:
+        az.kapitalbank.atlas: DEBUG
+
+application:
+    fimi:
+        master-key: "D638DA9EA84F022A865726EFC80102DF"
+        auth:
+            username: FIMIBBL
+            password: FIMIBBL
+        attach-card-sources:
+            - BIRBANK
+            - CLB
+            - CS
+    swagger:
+        title: Attach Card API
+        description: The api is used for attach card
+        default-include-pattern: "/.*"
+
+adapter:
+    fimi:
+        url: "http://localhost:8888/"
+    two:
+        url: "http://localhost:8092/"

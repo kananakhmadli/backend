@@ -6,6 +6,8 @@ import com.company.dto.ResponseDto;
 import com.company.dto.UserDto;
 import com.company.dto.UserDto2;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import com.company.service.UserService;
@@ -33,6 +35,10 @@ public class UserController {
         this.userService = userService;
     }
 
+//    @Autowired
+//    private UserService userService;
+
+
     @GetMapping(value = "v1/users")
     public ResponseEntity<ResponseDto> getUsers() {
         List<UserDto> users = userService.getUsers();
@@ -54,12 +60,23 @@ public class UserController {
         return ResponseEntity.ok((ResponseDto.of(userDto, "getting user")));
     }
 
-    //http://localhost:8080/api/v1/users/slice?page=0&size=2
-    @GetMapping(value = "v1/users/slice")
-    public ResponseEntity<ResponseDto> slice(Pageable pageable) {
+    //http://localhost:8080/api/v1/users/pagination/v1?page=0&size=2
+    @GetMapping(value = "v1/users/pagination/v1")
+    public ResponseEntity<ResponseDto> pagination(
+            @RequestParam("page") int page
+            , @RequestParam("size") int size) {
+
         log.info("requesting v1/users/slice");
-        List<UserDto> slice = userService.slice(pageable);
-        return ResponseEntity.ok((ResponseDto.of(slice, "getting pageable")));
+        List<UserDto> slice = userService.pagination(page, size);
+        return ResponseEntity.ok((ResponseDto.of(slice, "getting pageable1")));
+    }
+
+    //http://localhost:8080/api/v1/users/pagination/v2?page=0&size=2
+    @GetMapping(value = "v1/users/pagination/v2")
+    public ResponseEntity<ResponseDto> pagination(Pageable pageable) {
+        log.info("requesting v1/users/slice");
+        List<UserDto> slice = userService.pagination(pageable);
+        return ResponseEntity.ok((ResponseDto.of(slice, "getting pageable2")));
     }
 
     @GetMapping(value = "v1/user")

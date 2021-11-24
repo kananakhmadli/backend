@@ -11,6 +11,8 @@ import com.company.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,18 +23,26 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+
 @Transactional
 @Slf4j
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    @Autowired
-    private UserMapper userMapper;
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+    }
 
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public List<UserDto> getUsers() {
@@ -57,8 +67,16 @@ public class UserService {
         return userMapper.toUserDto(user);
     }
 
-    public List<UserDto> slice(Pageable pageable) {
+    public List<UserDto> pagination(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
         List<User> users = userRepository.findAll(pageable).getContent();
+        return userMapper.toUserDtoList(users);
+    }
+
+    public List<UserDto> pagination(Pageable pageable) {
+        List<User> users = userRepository.findAll(pageable).getContent();
+        Page<User> all = userRepository.findAll(pageable);
+        log.error("Page size is = " + all.getSize());
         return userMapper.toUserDtoList(users);
     }
 
@@ -74,7 +92,7 @@ public class UserService {
         return userMapper.toUserDtoList(users);
     }
 
-    public UserDto removeUser(Long id) { //done
+    public UserDto removeUser(Long id) {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new UserNotFoundException("There is no such a user to delete"));
         userRepository.deleteById(id);
@@ -82,7 +100,7 @@ public class UserService {
     }
 
     public void removeAll() {
-        userRepository.deleteAll(); //done
+        userRepository.deleteAll();
     }
 
     public CreateUserResponseDto updateUser(CreateUserRequestDto createUserRequestDto) {
@@ -94,15 +112,9 @@ public class UserService {
         return userMapper.toCreateUserResponseDto(user);
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    public CreateUserResponseDto addUser(CreateUserRequestDto createUserRequestDto) { //done
+    public CreateUserResponseDto addUser(CreateUserRequestDto createUserRequestDto) {
         String password = passwordEncoder.encode(createUserRequestDto.getPassword());
         createUserRequestDto.setPassword(password);
-
         User user = userMapper.toUser(createUserRequestDto);
         userRepository.save(user);
         return userMapper.toCreateUserResponseDto(user);

@@ -1,4 +1,4 @@
-package com.company.error;
+package com.company.error.kapital;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
