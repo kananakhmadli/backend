@@ -21,6 +21,7 @@ public class Application {
         Environment env = app.run(args).getEnvironment();
         String s=env.getProperty("spring.application.name");
         System.out.println(s);
+
     }
 
 
