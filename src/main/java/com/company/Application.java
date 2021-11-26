@@ -21,7 +21,6 @@ public class Application {
         logApplicationStartup(env);
     }
 
-
     private static void logApplicationStartup(Environment env) {
         String protocol = "http";
         if (env.getProperty("server.ssl.key-store") != null) {
