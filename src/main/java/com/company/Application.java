@@ -1,8 +1,7 @@
 package com.company;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
@@ -12,9 +11,8 @@ import java.net.UnknownHostException;
 
 //@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @SpringBootApplication
+@Slf4j
 public class Application {
-
-    private static final Logger log = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
         System.setProperty("spring.devtools.restart.enabled", "false");
