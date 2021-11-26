@@ -18,7 +18,7 @@ public class CreateUserRequestDto {
     @Size(min = 4, max = 10, message = ErrMessage.FIRSTNAME_SIZE)
     @ApiModelProperty(notes = "Name of the contact.",
             example = "Jessica", required = false, position = 1)
-    @NotBlank
+    @NotBlank(message = ErrMessage.FIRSTNAME_NOT_NULL)
     private String firstName;
 
     @NotNull(message = ErrMessage.LASTNAME_NOT_NULL)

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Home {
     @GetMapping
-    private ResponseEntity<String> home(){
+    private ResponseEntity<String> home() {
         return ResponseEntity.ok().body("Application is working");
     }
 }
