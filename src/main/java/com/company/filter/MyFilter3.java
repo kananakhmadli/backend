@@ -1,5 +1,6 @@
 package com.company.filter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +13,11 @@ import java.io.IOException;
 
 @Component
 @Order(3)
+@Slf4j
 public class MyFilter3 implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("Filter3 is called");
+        log.info("Filter3 is called");
         filterChain.doFilter(servletRequest,servletResponse);
     }
 }

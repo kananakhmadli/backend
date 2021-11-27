@@ -58,7 +58,7 @@ public class UserService {
 
     public UserDto getById(Long id) {
         User user = userRepository.findById(id).orElseThrow(
-                () -> new UserNotFoundException("There is no such a user to delete"));
+                () -> new UserNotFoundException("There is no such user "));
         return userMapper.toUserDto(user);
     }
 

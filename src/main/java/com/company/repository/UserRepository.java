@@ -12,11 +12,11 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u from User u where u.email=:em")
-    public User findByEmail(@Param("em") String email);
+    User findByEmail(@Param("em") String email);
 
     @Query("SELECT u from User u WHERE u.firstName=:first OR u.lastName=:last")
-    public List<User> findByFirstNameOrLastName(@Param("first") String firsName, @Param("last") String lastName);
+    List<User> findByFirstNameOrLastName(@Param("first") String firsName, @Param("last") String lastName);
 
     @Query("SELECT CASE WHEN count (u.email)> 0 THEN false ELSE true END FROM User u WHERE u.email=:e")
-    public boolean checkByEmail(@Param("e") String email);
+    boolean checkByEmail(@Param("e") String email);
 }

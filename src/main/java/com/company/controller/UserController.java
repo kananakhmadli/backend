@@ -6,7 +6,6 @@ import com.company.dto.ResponseDto;
 import com.company.dto.UserDto;
 import com.company.dto.UserDto2;
 import com.company.service.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +24,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
-@Slf4j
 @Validated
 public class UserController {
 
@@ -88,13 +86,13 @@ public class UserController {
     @PutMapping(value = "v1/users")
     public ResponseEntity<ResponseDto> updateUser(
             @RequestBody CreateUserRequestDto createUserRequestDto
-    ) throws Exception {
+    ) {
         CreateUserResponseDto userResponseDto = userService.updateUser(createUserRequestDto);
         return ResponseEntity.ok(ResponseDto.of(userResponseDto, "Successfully updated"));
     }
 
     @DeleteMapping("v1/users/{id}")
-    public ResponseEntity<ResponseDto> removeUser(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<ResponseDto> removeUser(@PathVariable("id") Long id) {
         UserDto userDto = userService.removeUser(id);
         return ResponseEntity.ok(ResponseDto.of(userDto, "Successfully deleted"));
     }

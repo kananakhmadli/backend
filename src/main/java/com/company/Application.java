@@ -3,14 +3,17 @@ package com.company;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.core.env.Environment;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-//@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+        SecurityAutoConfiguration.class,
+        ManagementWebSecurityAutoConfiguration.class})
 @Slf4j
 public class Application {
 
@@ -51,10 +54,10 @@ public class Application {
     }
 //    @Autowired
 //    private MessageSource messageSource;
-
+//
 //    @Value("${api-message-error}")
 //    private String message;
-
+//
 //    @Bean
 //    public CommandLineRunner run() throws Exception {
 //        return new CommandLineRunner() {
