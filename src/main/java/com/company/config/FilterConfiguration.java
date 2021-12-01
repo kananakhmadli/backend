@@ -12,4 +12,5 @@ public class FilterConfiguration {
         bean.addUrlPatterns("/api/*");
         return bean;
     }
+
 }

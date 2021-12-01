@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 
 @Data
 public class CreateUserRequestDto {
+
     private Long id;
 
     @NotNull(message = ErrMessage.FIRSTNAME_NOT_NULL)
@@ -33,4 +34,5 @@ public class CreateUserRequestDto {
     @UniqueEmail
     private String email;
     private String password;
+
 }

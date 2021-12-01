@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/")
 @Validated
 public class UserController {
 
@@ -102,4 +102,5 @@ public class UserController {
         userService.removeAll();
         return ResponseEntity.ok(ResponseDto.of(null, "Successfully deleted all users"));
     }
+
 }

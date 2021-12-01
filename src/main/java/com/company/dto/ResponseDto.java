@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResponseDto {
+
     private Integer errorCode;
     private String errorMessage;
     private String successMessage;
@@ -35,4 +36,5 @@ public class ResponseDto {
         dto.errorMessage = errorMessage;
         return dto;
     }
+
 }

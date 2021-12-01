@@ -57,6 +57,8 @@ public class UserService {
     }
 
     public UserDto getById(Long id) {
+        if (id == null)
+            throw new UserNotFoundException("ID is null");
         User user = userRepository.findById(id).orElseThrow(
                 () -> new UserNotFoundException("There is no such user "));
         return userMapper.toUserDto(user);
@@ -105,9 +107,7 @@ public class UserService {
 
     public CreateUserResponseDto updateUser(CreateUserRequestDto createUserRequestDto) {
         User user = userMapper.toUser(createUserRequestDto);
-        if (user == null) {
-            throw new UserNotFoundException("There is no such a user to update");
-        }
+        assert user != null : "There is no such a user to update";
         userRepository.save(user);
         return userMapper.toCreateUserResponseDto(user);
     }
@@ -119,4 +119,5 @@ public class UserService {
         userRepository.save(user);
         return userMapper.toCreateUserResponseDto(user);
     }
+
 }

@@ -12,7 +12,6 @@ public class LoggingConfiguration {
 
     @Bean
     public LoggingAspect loggingAspect(Environment env) {
-
         return new LoggingAspect(env);
     }
 

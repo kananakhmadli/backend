@@ -1,7 +1,7 @@
 server:
-    port: 8080
+    port: 8091
     servlet:
-        context-path: /api
+        context-path: /prod
 management:
     endpoints:
         web:
@@ -9,7 +9,7 @@ management:
                 include: [ "env", "health", "info" ]
 spring:
     application:
-        name: ms-backend-local
+        name: ms-backend-prod
     messages:
         basename: i18n/messages
         encoding: UTF-8
@@ -20,8 +20,4 @@ logging:
     level:
         com.company: DEBUG
     file:
-        name: log-local.txt
-
-api:
-    message:
-        local: You are using local profile
+        name: log-dev.txt

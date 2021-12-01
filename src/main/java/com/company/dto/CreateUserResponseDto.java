@@ -10,10 +10,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserResponseDto {
+
     private Long id;
     private String firstName;
     private String lastName;
     private Integer age;
     private String email;
     private String password;
+
 }

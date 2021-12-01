@@ -10,4 +10,5 @@ public class Home {
     public ResponseEntity<String> home() {
         return ResponseEntity.ok().body("Application is working");
     }
+
 }

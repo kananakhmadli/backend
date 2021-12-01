@@ -17,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @ToString
 public class ErrorResponse {
+
     private String uuid;
     private String code;
     private LocalDateTime timestamp = LocalDateTime.now();
@@ -29,4 +30,5 @@ public class ErrorResponse {
         this.message = message;
         this.checks = checks;
     }
+
 }

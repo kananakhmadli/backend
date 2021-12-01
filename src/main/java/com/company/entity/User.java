@@ -38,11 +38,4 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    public User(String firstName, String lastName, Integer age, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.email = email;
-        this.password = password;
-    }
 }

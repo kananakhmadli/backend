@@ -1,7 +1,6 @@
 package com.company;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,9 +30,6 @@ public class Application {
         }
         String serverPort = env.getProperty("local.server.port");
         String contextPath = env.getProperty("server.servlet.context-path");
-        if (StringUtils.isBlank(contextPath)) {
-            contextPath = "/";
-        }
         String hostAddress = "localhost";
         try {
             hostAddress = InetAddress.getLocalHost().getHostAddress();
@@ -52,19 +48,12 @@ public class Application {
                 contextPath,
                 env.getActiveProfiles());
     }
-//    @Autowired
-//    private MessageSource messageSource;
-//
-//    @Value("${api-message-error}")
-//    private String message;
-//
+
 //    @Bean
 //    public CommandLineRunner run() throws Exception {
 //        return new CommandLineRunner() {
 //            @Override
 //            public void run(String... args) throws Exception {
-//
-//                System.out.println("Message= "+message );
 //            }
 //
 //        };
