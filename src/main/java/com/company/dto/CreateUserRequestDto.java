@@ -4,13 +4,17 @@ import com.company.error.validation.constraints.ErrMessage;
 import com.company.error.validation.constraints.UniqueEmail;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CreateUserRequestDto {
 
     private Long id;

@@ -18,5 +18,4 @@ public class UserDto2 {
     public String concatNames(String firstName, String lastName) {
         return firstName + lastName;
     }
-
 }

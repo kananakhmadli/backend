@@ -36,6 +36,7 @@ dependencies {
 	implementation "org.mapstruct:mapstruct-jdk8:${mapstruct_version}"
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct_version}"
 	runtimeOnly 'com.h2database:h2'
+	implementation 'com.oracle.ojdbc:ojdbc8'
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 

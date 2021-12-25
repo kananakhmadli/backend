@@ -36,5 +36,4 @@ public class ResponseDto {
         dto.errorMessage = errorMessage;
         return dto;
     }
-
 }

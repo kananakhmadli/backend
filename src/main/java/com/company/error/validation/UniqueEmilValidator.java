@@ -1,7 +1,7 @@
 package com.company.error.validation;
 
-import com.company.repository.UserRepository;
 import com.company.error.validation.constraints.UniqueEmail;
+import com.company.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
@@ -16,5 +16,4 @@ public class UniqueEmilValidator implements ConstraintValidator<UniqueEmail, Str
     public boolean isValid(String email, ConstraintValidatorContext context) {
         return userRepository.checkByEmail(email);
     }
-
 }

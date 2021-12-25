@@ -49,14 +49,14 @@ public class Application {
                 env.getActiveProfiles());
     }
 
-//    @Bean
-//    public CommandLineRunner run() throws Exception {
-//        return new CommandLineRunner() {
-//            @Override
-//            public void run(String... args) throws Exception {
-//            }
-//
-//        };
-//    }
+/*    @Bean
+    public CommandLineRunner run() throws Exception {
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... args) throws Exception {
+            }
+
+        };
+    }*/
 
 }

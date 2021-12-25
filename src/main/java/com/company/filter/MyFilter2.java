@@ -18,10 +18,10 @@ import java.io.IOException;
 @Slf4j
 @Profile(ApplicationConstants.SPRING_PROFILE_PROD)
 public class MyFilter2 implements Filter {
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         log.info("Filter2 is called");
         filterChain.doFilter(servletRequest, servletResponse);
     }
-
 }

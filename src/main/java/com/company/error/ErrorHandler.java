@@ -43,7 +43,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return new ErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
     }
 
-    // bütün validationları göstermek üçün sream edirik
+    // bütün validationları göstermek üçün stream edirik
     @Override
     @NonNull
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
