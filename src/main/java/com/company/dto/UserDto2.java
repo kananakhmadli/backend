@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuppressWarnings("unused")
 public class UserDto2 {
 
     private String name;
@@ -18,4 +19,5 @@ public class UserDto2 {
     public String concatNames(String firstName, String lastName) {
         return firstName + lastName;
     }
+
 }

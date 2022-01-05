@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@SuppressWarnings("unused")
 public class ResponseDto {
 
     private Integer errorCode;
@@ -36,4 +37,5 @@ public class ResponseDto {
         dto.errorMessage = errorMessage;
         return dto;
     }
+
 }

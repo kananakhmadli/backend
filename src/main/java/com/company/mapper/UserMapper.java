@@ -7,12 +7,12 @@ import com.company.dto.UserDto2;
 import com.company.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+@SuppressWarnings({"CommentedOutCode", "unused"})
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
@@ -23,12 +23,10 @@ public interface UserMapper {
         return "Hey " + user.getFirstName() + " " + user.getLastName();
     }
 
-    @Mappings({
-            @Mapping(source = "user.firstName", target = "name"),
-            @Mapping(source = "user.lastName", target = "surname"),
-            @Mapping(target = "fullName", source = ".", qualifiedByName = "concatNames")
-    })
-    UserDto2 toUserDto2_1(User user);
+    @Mapping(target = "name", source = "user.firstName")
+    @Mapping(target = "surname", source = "user.lastName")
+    @Mapping(target = "fullName", source = ".", qualifiedByName = "concatNames")
+    UserDto2 toUserDto2(User user);
 
     /*
           @Mapping(target = "fullName", expression = "java(userDto2.concatNames(user.getFirstName(),user.getLastName()))")

@@ -24,8 +24,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-@RestControllerAdvice
 @Slf4j
+@RestControllerAdvice
+@SuppressWarnings("ConstantConditions")
 public class ErrorHandler extends ResponseEntityExceptionHandler {
 
     @Resource

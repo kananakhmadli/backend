@@ -11,4 +11,5 @@ public class MapperConfiguration {
     public UserMapper userMapper() {
         return UserMapper.INSTANCE;
     }
+
 }

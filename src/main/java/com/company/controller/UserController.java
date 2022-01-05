@@ -102,4 +102,5 @@ public class UserController {
         userService.removeAll();
         return ResponseEntity.ok(ResponseDto.of(null, "Successfully deleted all users"));
     }
+
 }

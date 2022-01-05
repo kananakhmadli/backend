@@ -14,4 +14,5 @@ public class LoggingConfiguration {
     public LoggingAspect loggingAspect(Environment env) {
         return new LoggingAspect(env);
     }
+
 }

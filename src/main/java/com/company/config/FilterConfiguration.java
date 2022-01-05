@@ -4,6 +4,7 @@ import com.company.filter.MyFilter3;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Configuration;
 
+@SuppressWarnings("unused")
 @Configuration
 public class FilterConfiguration {
 
@@ -13,4 +14,5 @@ public class FilterConfiguration {
         bean.addUrlPatterns("/api/*");
         return bean;
     }
+
 }

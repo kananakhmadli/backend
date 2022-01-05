@@ -25,6 +25,7 @@ import java.util.List;
 @Service
 @Transactional
 @Slf4j
+@SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "unused"})
 public class UserService {
 
     private final UserRepository userRepository;
@@ -46,8 +47,7 @@ public class UserService {
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public List<UserDto> getUsers() {
         log.info("getUsers methods is called");
-        List<User> users = userRepository.findAll();
-        return userMapper.toUserDtoList(users);
+        return userMapper.toUserDtoList(userRepository.findAll());
     }
 
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -82,13 +82,10 @@ public class UserService {
     }
 
     public List<UserDto> search(String firstName, String lastName) {
-
         if (firstName == null || firstName.trim().isEmpty())
             firstName = "";
-
         if (lastName == null || lastName.trim().isEmpty())
             lastName = "";
-
         List<User> users = userRepository.findByFirstNameOrLastName(firstName, lastName);
         return userMapper.toUserDtoList(users);
     }

@@ -24,4 +24,5 @@ public class MyFilter2 implements Filter {
         log.info("Filter2 is called");
         filterChain.doFilter(servletRequest, servletResponse);
     }
+
 }

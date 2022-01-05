@@ -16,4 +16,5 @@ public class UniqueEmilValidator implements ConstraintValidator<UniqueEmail, Str
     public boolean isValid(String email, ConstraintValidatorContext context) {
         return userRepository.checkByEmail(email);
     }
+
 }

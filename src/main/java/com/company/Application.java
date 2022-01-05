@@ -1,10 +1,12 @@
 package com.company;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
 import java.net.InetAddress;
@@ -49,14 +51,10 @@ public class Application {
                 env.getActiveProfiles());
     }
 
-/*    @Bean
-    public CommandLineRunner run() throws Exception {
-        return new CommandLineRunner() {
-            @Override
-            public void run(String... args) throws Exception {
-            }
-
+    @Bean
+    public CommandLineRunner run() {
+        return args -> {
         };
-    }*/
+    }
 
 }

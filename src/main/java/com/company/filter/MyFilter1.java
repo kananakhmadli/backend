@@ -29,4 +29,5 @@ public class MyFilter1 implements Filter {
         log.warn(message);
         filterChain.doFilter(servletRequest, servletResponse);
     }
+
 }

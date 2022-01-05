@@ -20,6 +20,7 @@ import static java.lang.annotation.ElementType.TYPE_USE;
 @Constraint(validatedBy = {UniqueEmilValidator.class})
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
+@SuppressWarnings("unused")
 public @interface UniqueEmail {
 
     String message() default ErrMessage.EMAIL_UNIQUE;
