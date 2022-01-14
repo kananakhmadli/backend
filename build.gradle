@@ -1,3 +1,4 @@
+//file:noinspection GradlePackageUpdate
 plugins {
 	id 'checkstyle'
 	id 'org.springframework.boot' version '2.2.2.RELEASE'
@@ -20,6 +21,7 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

@@ -1,7 +1,8 @@
 package com.company.service;
 
-import com.company.dto.CreateUserRequestDto;
-import com.company.dto.CreateUserResponseDto;
+import com.company.dto.CreateUserRequest;
+import com.company.dto.CreateUserResponse;
+import com.company.dto.UpdateUserRequest;
 import com.company.dto.UserDto;
 import com.company.dto.UserDto2;
 import com.company.entity.User;
@@ -55,7 +56,7 @@ public class UserService {
         return userMapper.toUserDto2List(userRepository.findAll());
     }
 
-    public UserDto getById(Long id) {
+    public UserDto getById(String id) {
         if (id == null)
             throw new UserNotFoundException("ID is null");
         User user = userRepository.findById(id).orElseThrow(
@@ -90,7 +91,24 @@ public class UserService {
         return userMapper.toUserDtoList(users);
     }
 
-    public UserDto removeUser(Long id) {
+    public CreateUserResponse addUser(CreateUserRequest createUserRequest) {
+        String password = passwordEncoder.encode(createUserRequest.getPassword());
+        createUserRequest.setPassword(password);
+        User user = userMapper.toUser(createUserRequest);
+        userRepository.save(user);
+        return userMapper.toCreateUserResponseDto(user);
+    }
+
+    public void updateUser(UpdateUserRequest request) {
+        User user = userRepository.findById(request.getId()).orElseThrow(
+                () -> new UserNotFoundException("There is no such a user"));
+
+        assert user != null : "There is no such a user to update";
+        user = userMapper.toUser(request, user);
+        userRepository.save(user);
+    }
+
+    public UserDto removeUser(String id) {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new UserNotFoundException("There is no such a user to delete"));
         userRepository.deleteById(id);
@@ -99,21 +117,6 @@ public class UserService {
 
     public void removeAll() {
         userRepository.deleteAll();
-    }
-
-    public CreateUserResponseDto updateUser(CreateUserRequestDto createUserRequestDto) {
-        User user = userMapper.toUser(createUserRequestDto);
-        assert user != null : "There is no such a user to update";
-        userRepository.save(user);
-        return userMapper.toCreateUserResponseDto(user);
-    }
-
-    public CreateUserResponseDto addUser(CreateUserRequestDto createUserRequestDto) {
-        String password = passwordEncoder.encode(createUserRequestDto.getPassword());
-        createUserRequestDto.setPassword(password);
-        User user = userMapper.toUser(createUserRequestDto);
-        userRepository.save(user);
-        return userMapper.toCreateUserResponseDto(user);
     }
 
 }

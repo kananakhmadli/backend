@@ -9,12 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class CreateUserResponse {
 
     private String id;
-    private String firstName;
-    private String lastName;
-    private Integer age;
-    private String email;
 
 }
