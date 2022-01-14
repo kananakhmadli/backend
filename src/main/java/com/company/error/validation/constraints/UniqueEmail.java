@@ -16,11 +16,11 @@ import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.ElementType.TYPE_USE;
 
+@SuppressWarnings("unused")
 @Documented
 @Constraint(validatedBy = {UniqueEmilValidator.class})
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
-@SuppressWarnings("unused")
 public @interface UniqueEmail {
 
     String message() default ErrMessage.EMAIL_UNIQUE;

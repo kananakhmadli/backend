@@ -8,34 +8,36 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserRequestDto {
+public class CreateUserRequest {
 
-    private Long id;
-
-    @NotNull(message = ErrMessage.FIRSTNAME_NOT_NULL)
-    @Size(min = 4, max = 10, message = ErrMessage.FIRSTNAME_SIZE)
     @ApiModelProperty(notes = "Name of the contact.", example = "Jessica", position = 1)
-    @NotBlank(message = ErrMessage.FIRSTNAME_NOT_NULL)
+    @Size(min = 4, max = 10, message = ErrMessage.FIRSTNAME_SIZE)
+    @NotEmpty(message = ErrMessage.FIRSTNAME_NOT_NULL)
     private String firstName;
 
-    @NotNull(message = ErrMessage.LASTNAME_NOT_NULL)
     @Size(min = 3, max = 9, message = ErrMessage.LASTNAME_SIZE)
+    @NotEmpty(message = ErrMessage.LASTNAME_NOT_NULL)
     private String lastName;
 
     @JsonProperty("age")
     private Integer age;
 
-    @NotNull(message = ErrMessage.EMAIL_NOT_NULL)
-    @Size(min = 3, max = 30, message = ErrMessage.EMAIL_SIZE)
     @UniqueEmail
+    @Size(min = 3, max = 30, message = ErrMessage.EMAIL_SIZE)
+    @NotEmpty(message = ErrMessage.EMAIL_NOT_NULL)
     private String email;
+
+    @NotNull(message = ErrMessage.PASSWORD_NOT_NULL)
     private String password;
 
 }
+/*
+@NotBlank(message = ErrMessage.FIRSTNAME_NOT_NULL)
+*/

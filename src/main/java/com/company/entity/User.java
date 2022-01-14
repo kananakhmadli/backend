@@ -5,11 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
@@ -22,8 +22,9 @@ import javax.persistence.Id;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid",strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
 
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
@@ -31,7 +32,7 @@ public class User {
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
-    @Column(name = "age", nullable = false, length = 50)
+    @Column(name = "age", length = 50)
     private Integer age;
 
     @Column(name = "email", nullable = false, length = 50, unique = true)

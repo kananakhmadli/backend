@@ -25,8 +25,8 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Slf4j
-@RestControllerAdvice
 @SuppressWarnings("ConstantConditions")
+@RestControllerAdvice
 public class ErrorHandler extends ResponseEntityExceptionHandler {
 
     @Resource
@@ -58,17 +58,24 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         errorList.addAll(bindingResult.getFieldErrors()
                 .stream()
                 .map(fieldError ->
-                        new ValidationError(ErrorLevel.ERROR, fieldError.getField(), this.messageSource.getMessage(fieldError.getDefaultMessage(), fieldError.getArguments(), Locale.ENGLISH))
+                        new ValidationError(ErrorLevel.ERROR, fieldError.getField(),
+                                this.messageSource.getMessage(fieldError.getDefaultMessage(),
+                                        fieldError.getArguments(),
+                                        Locale.ENGLISH))
                 )
                 .collect(Collectors.toList()));
 
         errorList.addAll(bindingResult.getGlobalErrors()
                 .stream()
                 .map(globalError ->
-                        new ValidationError(ErrorLevel.ERROR, "", this.messageSource.getMessage(globalError.getDefaultMessage(), globalError.getArguments(), Locale.ENGLISH)))
+                        new ValidationError(ErrorLevel.ERROR,
+                                "",
+                                this.messageSource.getMessage(globalError.getDefaultMessage(),
+                                        globalError.getArguments(), Locale.ENGLISH)))
                 .collect(Collectors.toList()));
 
-        return new ResponseEntity<>(new ErrorResponse(HttpStatus.BAD_REQUEST, null, errorList), headers, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorResponse(HttpStatus.BAD_REQUEST,
+                null, errorList), headers, HttpStatus.BAD_REQUEST);
     }
 
 }

@@ -1,13 +1,19 @@
 package com.company.error.validation.constraints;
 
-public interface ErrMessage {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-    String FIRSTNAME_SIZE = "validation.firstNameSize.message";
-    String FIRSTNAME_NOT_NULL = "validation.firstNameNotNull.message";
-    String LASTNAME_SIZE = "validation.lastNameSize.message";
-    String LASTNAME_NOT_NULL = "validation.lastNameNotNull.message";
-    String EMAIL_SIZE = "validation.emailSize.message";
-    String EMAIL_NOT_NULL = "validation.emailNotNull.message";
-    String EMAIL_UNIQUE = "validation.emailUniqueEmail.message";
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class ErrMessage {
+
+    public static final String FIRSTNAME_SIZE = "err.firstNameSize.message";
+    public static final String FIRSTNAME_NOT_NULL = "err.firstNameNotNull.message";
+    public static final String LASTNAME_SIZE = "err.lastNameSize.message";
+    public static final String LASTNAME_NOT_NULL = "err.lastNameNotNull.message";
+    public static final String EMAIL_SIZE = "err.emailSize.message";
+    public static final String EMAIL_NOT_NULL = "err.emailNotNull.message";
+    public static final String EMAIL_UNIQUE = "err.emailUniqueEmail.message";
+    public static final String PASSWORD_NOT_NULL = "err.passwordNotNull.message";
+    public static final String ID_NOT_NULL = "err.idNotNull.message";
 
 }
