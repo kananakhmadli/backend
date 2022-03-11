@@ -1,23 +1,15 @@
 server:
-    port: 8091
-    servlet:
-        context-path: /prod
-management:
-    endpoints:
-        web:
-            exposure:
-                include: [ "env", "health", "info" ]
-spring:
-    application:
-        name: ms-backend-prod
-    messages:
-        basename: i18n/messages
-        encoding: UTF-8
-    datasource:
-        url: jdbc:h2:mem:testdb
+  port: 8091
+  servlet:
+    context-path: /prod
 
 logging:
-    level:
-        com.company: DEBUG
-    file:
-        name: log-dev.txt
+  level:
+    root: WARN
+    com.company: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: [ "env", "health", "info" ]

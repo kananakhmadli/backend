@@ -1,14 +1,10 @@
-package com.company.dto;
+package com.company.dto.response;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.UUID;
 
-@Getter
-@Setter
-@NoArgsConstructor()
+@Data
 public class RestResponse {
 
     private String uuid = UUID.randomUUID().toString();

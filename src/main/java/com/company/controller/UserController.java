@@ -1,13 +1,11 @@
 package com.company.controller;
 
-import com.company.dto.CreateUserRequest;
-import com.company.dto.CreateUserResponse;
-import com.company.dto.RestResponse;
-import com.company.dto.UpdateUserRequest;
-import com.company.dto.UserDto;
-import com.company.dto.UserDto2;
+import com.company.dto.request.CreateUserRequest;
+import com.company.dto.response.RestResponse;
+import com.company.dto.request.UpdateUserRequest;
 import com.company.mapper.RestResponseMapper;
 import com.company.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -22,31 +20,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping(value = "/")
-@Validated
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
     private final RestResponseMapper responseMapper;
 
-    public UserController(UserService userService, RestResponseMapper responseMapper) {
-        this.userService = userService;
-        this.responseMapper = responseMapper;
-    }
-
     @GetMapping(value = "v1/users")
     public ResponseEntity<RestResponse> getUsers() {
-        List<UserDto> users = userService.getUsers();
+        var users = userService.getUsers();
         return ResponseEntity.ok((responseMapper.toResponse(users, "getting all users")));
     }
 
-
     @GetMapping(value = "v1/users/{id}")
     public ResponseEntity<RestResponse> getUser(@PathVariable(required = false) String id) {
-        UserDto userDto = userService.getById(id);
+        var userDto = userService.getById(id);
         return ResponseEntity.ok((responseMapper.toResponse(userDto, "getting user")));
     }
 
@@ -54,51 +46,47 @@ public class UserController {
     public ResponseEntity<RestResponse> search(
             @RequestParam(name = "name", required = false) String firstName,
             @RequestParam(name = "surname", required = false) String lastName) {
-        List<UserDto> userDtos = userService.search(firstName, lastName);
-        return ResponseEntity.ok((responseMapper.toResponse(userDtos, "searching user")));
+        var userDtoList = userService.search(firstName, lastName);
+        return ResponseEntity.ok((responseMapper.toResponse(userDtoList, "searching user")));
     }
 
-    //http://localhost:8080/api/v1/users/pagination/v1?page=0&size=2
+    //http://localhost:8089/api/v1/users/pagination/v1?page=0&size=2
     @GetMapping(value = "v1/users/pagination/v1")
     public ResponseEntity<RestResponse> pagination(
             @RequestParam("page") int page,
             @RequestParam("size") int size) {
-        List<UserDto> slice = userService.pagination(page, size);
+        var slice = userService.pagination(page, size);
         return ResponseEntity.ok((responseMapper.toResponse(slice, "getting pageable1")));
     }
 
-    //http://localhost:8080/api/v1/users/pagination/v2?page=0&size=2
+    //http://localhost:8089/api/v1/users/pagination/v2?page=0&size=2
     @GetMapping(value = "v1/users/pagination/v2")
     public ResponseEntity<RestResponse> pagination(Pageable pageable) {
-        List<UserDto> slice = userService.pagination(pageable);
+        var slice = userService.pagination(pageable);
         return ResponseEntity.ok((responseMapper.toResponse(slice, "getting pageable2")));
     }
 
     @GetMapping(value = "v1/test1")
     public ResponseEntity<RestResponse> test1() {
-        List<UserDto2> users2 = userService.getUsers2();
+        var users2 = userService.getUsers2();
         return ResponseEntity.ok((responseMapper.toResponse(users2, "getting all users with mapper")));
     }
 
-
     @PostMapping(value = "v1/users")
-    public ResponseEntity<RestResponse> addUser(
-            @Valid @RequestBody CreateUserRequest createUserRequest) {
-        CreateUserResponse userResponseDto = userService.addUser(createUserRequest);
+    public ResponseEntity<RestResponse> addUser(@Valid @RequestBody CreateUserRequest request) {
+        var userResponseDto = userService.addUser(request);
         return ResponseEntity.ok(responseMapper.toResponse(userResponseDto, "Successfully added new user"));
     }
 
     @PutMapping(value = "v1/users")
-    public ResponseEntity<RestResponse> updateUser(
-            @RequestBody UpdateUserRequest updateUserRequest) {
-
-        userService.updateUser(updateUserRequest);
+    public ResponseEntity<RestResponse> updateUser(@RequestBody UpdateUserRequest request) {
+        userService.updateUser(request);
         return ResponseEntity.ok(responseMapper.toResponse(null, "Successfully updated"));
     }
 
     @DeleteMapping("v1/users/{id}")
     public ResponseEntity<RestResponse> removeUser(@PathVariable String id) {
-        UserDto userDto = userService.removeUser(id);
+        var userDto = userService.removeUser(id);
         return ResponseEntity.ok(responseMapper.toResponse(userDto, "Successfully deleted"));
     }
 

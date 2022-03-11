@@ -1,18 +1,17 @@
 package com.company.service;
 
-import com.company.dto.CreateUserRequest;
-import com.company.dto.CreateUserResponse;
-import com.company.dto.UpdateUserRequest;
+import com.company.dto.request.CreateUserRequest;
+import com.company.dto.response.CreateUserResponse;
+import com.company.dto.request.UpdateUserRequest;
 import com.company.dto.UserDto;
 import com.company.dto.UserDto2;
-import com.company.entity.User;
 import com.company.error.exceptions.UserNotFoundException;
 import com.company.mapper.UserMapper;
 import com.company.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,10 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional
-@Slf4j
 @SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "unused"})
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
@@ -39,11 +39,6 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
 
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public List<UserDto> getUsers() {
@@ -59,25 +54,25 @@ public class UserService {
     public UserDto getById(String id) {
         if (id == null)
             throw new UserNotFoundException("ID is null");
-        User user = userRepository.findById(id).orElseThrow(
+        var user = userRepository.findById(id).orElseThrow(
                 () -> new UserNotFoundException("There is no such user "));
         return userMapper.toUserDto(user);
     }
 
     public UserDto findByEmail(String email) {
-        User user = userRepository.findByEmail(email);
+        var user = userRepository.findByEmail(email);
         return userMapper.toUserDto(user);
     }
 
     public List<UserDto> pagination(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        List<User> users = userRepository.findAll(pageable).getContent();
+        var pageable = PageRequest.of(page, size);
+        var users = userRepository.findAll(pageable).getContent();
         return userMapper.toUserDtoList(users);
     }
 
     public List<UserDto> pagination(Pageable pageable) {
-        List<User> users = userRepository.findAll(pageable).getContent();
-        Page<User> all = userRepository.findAll(pageable);
+        var users = userRepository.findAll(pageable).getContent();
+        var all = userRepository.findAll(pageable);
         log.error("Page size is = " + all.getSize());
         return userMapper.toUserDtoList(users);
     }
@@ -87,20 +82,20 @@ public class UserService {
             firstName = "";
         if (lastName == null || lastName.trim().isEmpty())
             lastName = "";
-        List<User> users = userRepository.findByFirstNameOrLastName(firstName, lastName);
+        var users = userRepository.findByFirstNameOrLastName(firstName, lastName);
         return userMapper.toUserDtoList(users);
     }
 
-    public CreateUserResponse addUser(CreateUserRequest createUserRequest) {
-        String password = passwordEncoder.encode(createUserRequest.getPassword());
-        createUserRequest.setPassword(password);
-        User user = userMapper.toUser(createUserRequest);
+    public CreateUserResponse addUser(CreateUserRequest request) {
+        String password = passwordEncoder.encode(request.getPassword());
+        request.setPassword(password);
+        var user = userMapper.toUser(request);
         userRepository.save(user);
         return userMapper.toCreateUserResponseDto(user);
     }
 
     public void updateUser(UpdateUserRequest request) {
-        User user = userRepository.findById(request.getId()).orElseThrow(
+        var user = userRepository.findById(request.getId()).orElseThrow(
                 () -> new UserNotFoundException("There is no such a user"));
 
         assert user != null : "There is no such a user to update";
@@ -109,7 +104,7 @@ public class UserService {
     }
 
     public UserDto removeUser(String id) {
-        User user = userRepository.findById(id).orElseThrow(
+        var user = userRepository.findById(id).orElseThrow(
                 () -> new UserNotFoundException("There is no such a user to delete"));
         userRepository.deleteById(id);
         return userMapper.toUserDto(user);

@@ -1,20 +1,6 @@
-server:
-  port: 8089
-  servlet:
-    context-path: /api
-
 logging:
-  level:
-    root: WARN
-    com.company: DEBUG
   file:
     name: "log-${spring.profiles.active}.txt"
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: [ "env", "health", "info" ]
 
 spring:
   application:
@@ -30,6 +16,9 @@ spring:
     hibernate:
       ddl-auto: create-drop
     defer-datasource-initialization: true
+  config:
+    activate:
+      on-profile: "!local"
 
 api:
   message: 'You are using ${spring.profiles.active} profile'

@@ -12,10 +12,11 @@ import org.springframework.core.env.Environment;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+@Slf4j
 @SpringBootApplication(exclude = {
         SecurityAutoConfiguration.class,
-        ManagementWebSecurityAutoConfiguration.class})
-@Slf4j
+        ManagementWebSecurityAutoConfiguration.class
+})
 public class Application {
 
     public static void main(String[] args) {

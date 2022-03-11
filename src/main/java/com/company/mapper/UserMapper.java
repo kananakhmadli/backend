@@ -1,10 +1,10 @@
 package com.company.mapper;
 
-import com.company.dto.CreateUserRequest;
-import com.company.dto.CreateUserResponse;
-import com.company.dto.UpdateUserRequest;
 import com.company.dto.UserDto;
 import com.company.dto.UserDto2;
+import com.company.dto.request.CreateUserRequest;
+import com.company.dto.request.UpdateUserRequest;
+import com.company.dto.response.CreateUserResponse;
 import com.company.entity.User;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
@@ -12,11 +12,12 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
@@ -37,11 +38,11 @@ public interface UserMapper {
           @Mapping(target = "fullName", expression = "java(userDto2.concatNames(user.getFirstName(),user.getLastName()))")
           UserDto2 fromUsertoUserDto(User user);
     */
-    List<UserDto2> toUserDto2List(List<User> user);
+    List<UserDto2> toUserDto2List(List<User> users);
 
     UserDto toUserDto(User user);
 
-    List<UserDto> toUserDtoList(List<User> user);
+    List<UserDto> toUserDtoList(List<User> users);
 
     User toUser(CreateUserRequest createUserRequest);
 

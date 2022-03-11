@@ -1,16 +1,12 @@
-package com.company.dto;
+package com.company.dto.request;
 
 import com.company.error.validation.constraints.ErrMessage;
 import com.company.error.validation.constraints.UniqueEmail;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class UpdateUserRequest {
 
     @NotNull(message = ErrMessage.ID_NOT_NULL)

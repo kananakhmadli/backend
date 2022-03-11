@@ -14,13 +14,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 
-@Component
-@Order(2)
 @Slf4j
+@Order(2)
+@Component
 @Profile(ApplicationConstants.SPRING_PROFILE_LOCAL)
 public class MyFilter1 implements Filter {
 
-    @Value("${api.message.local}")
+    @Value("${api.message}")
     private String message;
 
     @Override

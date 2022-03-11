@@ -1,11 +1,12 @@
 package com.company.mapper;
 
-import com.company.dto.RestResponse;
+import com.company.dto.response.RestResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RestResponseMapper {
 
     RestResponseMapper INSTANCE = Mappers.getMapper(RestResponseMapper.class);

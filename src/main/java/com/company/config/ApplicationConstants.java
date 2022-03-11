@@ -1,9 +1,12 @@
 package com.company.config;
 
-public interface ApplicationConstants {
+public final class ApplicationConstants {
 
-    String SPRING_PROFILE_LOCAL = "local";
-    String SPRING_PROFILE_DEV = "dev";
-    String SPRING_PROFILE_PROD = "prod";
+    public static final String SPRING_PROFILE_LOCAL = "local";
+    public static final String SPRING_PROFILE_DEV = "dev";
+    public static final String SPRING_PROFILE_PROD = "prod";
+
+    private ApplicationConstants() {
+    }
 
 }
