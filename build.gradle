@@ -56,3 +56,8 @@ wrapper {
 checkstyle {
 	toolVersion '8.23'
 }
+
+task sayHello{
+	System.out.println("Hello grale");
+	print("hello man")
+}

@@ -30,6 +30,9 @@ spring:
     hibernate:
       ddl-auto: create-drop
     defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
 
 api:
   message: 'You are using ${spring.profiles.active} profile'
