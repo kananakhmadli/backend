@@ -87,8 +87,7 @@ public class UserService {
     }
 
     public CreateUserResponse addUser(CreateUserRequest request) {
-        String password = passwordEncoder.encode(request.getPassword());
-        request.setPassword(password);
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
         var user = userMapper.toUser(request);
         userRepository.save(user);
         return userMapper.toCreateUserResponseDto(user);

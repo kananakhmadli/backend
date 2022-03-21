@@ -1,8 +1,8 @@
 package com.company.controller;
 
 import com.company.dto.request.CreateUserRequest;
-import com.company.dto.response.RestResponse;
 import com.company.dto.request.UpdateUserRequest;
+import com.company.dto.response.RestResponse;
 import com.company.mapper.RestResponseMapper;
 import com.company.service.UserService;
 import lombok.RequiredArgsConstructor;
