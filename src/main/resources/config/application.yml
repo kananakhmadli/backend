@@ -9,7 +9,9 @@ spring:
     basename: i18n/messages
     encoding: UTF-8
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: "jdbc:h2:mem:testdb"
+    username: "moon"
+    password: "moon"
   main:
     allow-circular-references: true
   jpa:
@@ -19,6 +21,16 @@ spring:
   config:
     activate:
       on-profile: "!local"
+  h2:
+    console:
+      enabled: true
 
 api:
   message: 'You are using ${spring.profiles.active} profile'
+
+security:
+  signingKey: "MaYzkSjmkzPC57L"
+  realm: "test"
+  resourceId: "ms-backend"
+  clientId: "moon"
+  clientSecret: "moon"

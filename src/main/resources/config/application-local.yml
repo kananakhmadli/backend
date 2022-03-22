@@ -7,6 +7,9 @@ logging:
   level:
     root: WARN
     com.company: DEBUG
+#    org:
+#      springframework:
+#        security: DEBUG
   file:
     name: "log-${spring.profiles.active}.txt"
 
@@ -23,16 +26,26 @@ spring:
     basename: i18n/messages
     encoding: UTF-8
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: "jdbc:postgresql://localhost:5431/test"
+    username: "moon"
+    password: "moon"
   main:
     allow-circular-references: true
   jpa:
     hibernate:
       ddl-auto: create-drop
+    show-sql: true
     defer-datasource-initialization: true
-  h2:
-    console:
-      enabled: true
+  sql:
+    init:
+      mode: always
 
 api:
   message: 'You are using ${spring.profiles.active} profile'
+
+security:
+  signingKey: "MaYzkSjmkzPC57L"
+  realm: "test"
+  resourceId: "ms-backend"
+  clientId: "moon"
+  clientSecret: "moon"

@@ -1,9 +1,6 @@
 package com.company.error;
 
-import com.company.error.exceptions.ErrorLevel;
-import com.company.error.exceptions.ErrorResponse;
-import com.company.error.exceptions.UserNotFoundException;
-import com.company.error.exceptions.ValidationError;
+import com.company.error.exceptions.StudentNotFoundException;
 import io.micrometer.core.lang.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
@@ -22,26 +19,36 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
-@SuppressWarnings("ConstantConditions")
 @RestControllerAdvice
-public class ErrorHandler extends ResponseEntityExceptionHandler {
+public class RestErrorHandler extends ResponseEntityExceptionHandler {
 
     @Resource
     private MessageSource messageSource;
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(value = {UserNotFoundException.class})
-    public ErrorResponse userNotFound(UserNotFoundException ex) {
-        return new ErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    @ExceptionHandler(value = {StudentNotFoundException.class})
+    public RestErrorResponse studentNotFound(StudentNotFoundException ex) {
+        log.error("Service error, uuid: {}, code: {}, message: {}, {}",
+                ex.getErrorUuid(), ex.getErrorCode(), ex.getErrorMessage(), ex.formatProperties());
+        return new RestErrorResponse(ex.getErrorUuid(),
+                ex.getErrorCode(),
+                ex.getErrorMessage(),
+                ex.getProperties());
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = {Exception.class})
-    public ErrorResponse handleInternalServerErrors(Exception ex) {
-        return new ErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+    public RestErrorResponse handleInternalServerErrors(Exception ex) {
+        String uuid = UUID.randomUUID().toString();
+        log.error("Error unexpected internal server error, uuid: {}, message: {}",
+                uuid, ex.getMessage());
+        return new RestErrorResponse(uuid,
+                HttpStatus.INTERNAL_SERVER_ERROR.name(),
+                "Internal server error");
     }
 
     // bütün validationları göstermek üçün stream edirik
@@ -52,6 +59,8 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers,
             HttpStatus status,
             WebRequest request) {
+        String uuid = UUID.randomUUID().toString();
+        log.error("Constraint violation error, uuid: {}, message: {}", uuid, ex.getMessage());
         var checks = new ArrayList<ValidationError>();
         var bindingResult = ex.getBindingResult();
 
@@ -67,10 +76,11 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
                         errorMessage(globalError)))
                 .collect(Collectors.toList()));
 
+        var badRequest = HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(
-                new ErrorResponse(HttpStatus.BAD_REQUEST, "Invalid Arguments", checks),
+                new RestErrorResponse(uuid, badRequest.name(), "Invalid Arguments", checks),
                 headers,
-                HttpStatus.BAD_REQUEST);
+                badRequest);
     }
 
     private String errorMessage(ObjectError objectError) {

@@ -3,7 +3,7 @@ package com.company.dto.response;
 import lombok.Data;
 
 @Data
-public class CreateUserResponse {
+public class CreateStudentResponse {
 
     private String id;
 

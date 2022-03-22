@@ -1,5 +1,6 @@
 package com.company.logging;
 
+import com.company.config.ApplicationConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -23,21 +24,22 @@ public class LoggingAspect {
     @Pointcut("within(@org.springframework.stereotype.Service *)" +
             " || within(@org.springframework.web.bind.annotation.RestController *)")
     public void springBeanPointcut() {
+        // for aop
     }
 
     @Pointcut("within(com.company.controller.*)" +
             " || within(com.company.service.*)")
     public void applicationPackagePointcut() {
+        // for aop
     }
 
     @AfterThrowing(pointcut = "applicationPackagePointcut() && " +
             "springBeanPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
         if (env.acceptsProfiles(Profiles.of(
-                "ApplicationConstants.SPRING_PROFILE_LOCAL",
-                "ApplicationConstants.SPRING_PROFILE_DEV",
-                "ApplicationConstants.SPRING_PROFILE_PREPROD"))) {
-            log.error("Exception in {}.{}() with cause = \'{}\' and exception = \'{}\'",
+                ApplicationConstants.SPRING_PROFILE_LOCAL,
+                ApplicationConstants.SPRING_PROFILE_DEV))) {
+            log.error("Exception in {}.{}() with cause = {} and exception = {}",
                     joinPoint.getSignature().getDeclaringTypeName(),
                     joinPoint.getSignature().getName(),
                     getExceptionCause(e), e.getMessage(), e);
@@ -57,8 +59,8 @@ public class LoggingAspect {
 
         if (log.isDebugEnabled()) {
             log.debug("Enter: {}.{}() with argument[s] = {}",
-                    joinPoint.getSignature().getDeclaringTypeName(),
-                    joinPoint.getSignature().getName(),
+                    joinPoint.getSignature().getDeclaringTypeName(), // class name
+                    joinPoint.getSignature().getName(), // method name
                     Arrays.toString(joinPoint.getArgs()));
         }
         try {
@@ -66,7 +68,8 @@ public class LoggingAspect {
             if (log.isDebugEnabled()) {
                 log.debug("Exit: {}.{}() with result = {}",
                         joinPoint.getSignature().getDeclaringTypeName(),
-                        joinPoint.getSignature().getName(), result);
+                        joinPoint.getSignature().getName(),
+                        result);
             }
             return result;
         } catch (IllegalArgumentException e) {

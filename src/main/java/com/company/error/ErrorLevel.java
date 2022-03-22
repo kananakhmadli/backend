@@ -1,9 +1,8 @@
-package com.company.error.exceptions;
+package com.company.error;
 
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public enum ErrorLevel {
 
     WARNING,

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-public class CreateUserRequest {
+public class CreateStudentRequest {
 
     @Size(min = 4, max = 10, message = ErrMessage.FIRSTNAME_SIZE)
     @NotEmpty(message = ErrMessage.FIRSTNAME_NOT_NULL)

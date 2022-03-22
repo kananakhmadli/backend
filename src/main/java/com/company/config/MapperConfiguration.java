@@ -1,7 +1,7 @@
 package com.company.config;
 
 import com.company.mapper.RestResponseMapper;
-import com.company.mapper.UserMapper;
+import com.company.mapper.StudentMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class MapperConfiguration {
 
     @Bean
-    public UserMapper userMapper() {
-        return UserMapper.INSTANCE;
+    public StudentMapper studentMapper() {
+        return StudentMapper.INSTANCE;
     }
 
     @Bean

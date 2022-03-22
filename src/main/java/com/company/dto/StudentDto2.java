@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 @SuppressWarnings("unused")
-public class UserDto2 {
+public class StudentDto2 {
 
     private String name;
     private String surname;

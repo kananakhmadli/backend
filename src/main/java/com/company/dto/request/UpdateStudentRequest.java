@@ -7,7 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class UpdateUserRequest {
+public class UpdateStudentRequest {
 
     @NotNull(message = ErrMessage.ID_NOT_NULL)
     private String id;
